@@ -236,6 +236,12 @@ const GATILHO_ESPERADO: Record<string, { condicao: string | null; efeito: string
   },
 
   // --- e o que legitimamente tem interruptor -----------------------------------
+  "sync-fork.yml::sync": {
+    condicao: "github.repository == 'rafaelcesardev/DeskcommCRM'",
+    efeito:
+      "Mantém a main deste fork sincronizada com o original a cada hora. A condição " +
+      "restringe a automação ao fork; desligá-la interrompe essa sincronização.",
+  },
   "acolhida.yml::acolher": {
     condicao:
       "github.repository_owner == 'melgarafael' && " +

@@ -617,12 +617,17 @@ jobs:
         # aceita `timeout-minutes`. Razão e medições: o cabeçalho da action.
         timeout-minutes: 5
 
+      - name: Buscar referências de release do original para o fork
+        if: github.repository == 'rafaelcesardev/DeskcommCRM'
+        run: git fetch --depth=1 --no-tags https://github.com/melgarafael/DeskcommCRM.git 'refs/tags/*:refs/tags/*'
+
       - name: RLS isolation + governance invariants (pg${{ matrix.pg }})
         # O token é só para `gh release view`: o test:db confere o update.sh da
         # última release publicada (issue #1909), e a API anônima tem teto de 60
         # consultas/hora por IP — o executor próprio é um IP só.
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository == 'rafaelcesardev/DeskcommCRM' && 'melgarafael/DeskcommCRM' || github.repository }}
         run: pnpm test:db
 
       # O `update.sh` do cliente roda sobre um banco COM DADOS, e nenhum gate
