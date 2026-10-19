@@ -1,0 +1,12 @@
+{
+  "app": {
+    "node_mb": 928.353457,
+    "bun_mb": 840.925951,
+    "nota": "só a base do runner muda"
+  },
+  "worker": {
+    "node_mb": 3639.139947,
+    "bun_mb": 1901.762117,
+    "nota": "o Dockerfile do Bun é multi-stage; a maior parte do ganho vem disso (store do pnpm fica no estágio descartado), não do runtime"
+  }
+}

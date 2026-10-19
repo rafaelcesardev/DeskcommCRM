@@ -1,0 +1,408 @@
+{
+  "app": {
+    "node": {
+      "rodadas": 3,
+      "partida_ms": 2813,
+      "rss_ocioso_mb": 275.359375,
+      "rss_pos_carga_mb": 1230.640625,
+      "rotas": {
+        "__next_static_chunks_0-vzw9b9ro8gx.js": {
+          "rps": 6550.5319039099895,
+          "p50_ms": 6.803624999999999,
+          "p99_ms": 13.478875,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 98293
+            },
+            {
+              "200": 95940
+            },
+            {
+              "200": 105984
+            }
+          ],
+          "rss_pico_mb": 1592.078125
+        },
+        "_api_v1_health": {
+          "rps": 671.0072249959425,
+          "p50_ms": 71.879125,
+          "p99_ms": 184.048875,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "503": 10151
+            },
+            {
+              "503": 6147
+            },
+            {
+              "503": 10017
+            }
+          ],
+          "rss_pico_mb": 1593.28125
+        },
+        "_login": {
+          "rps": 278.4719588933147,
+          "p50_ms": 175.382917,
+          "p99_ms": 307.212542,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 4128
+            },
+            {
+              "200": 4151
+            },
+            {
+              "200": 4074
+            }
+          ],
+          "rss_pico_mb": 653.578125
+        },
+        "_raiz": {
+          "rps": 342.5965190701168,
+          "p50_ms": 141.3985,
+          "p99_ms": 202.431084,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 5090
+            },
+            {
+              "200": 5210
+            },
+            {
+              "200": 5048
+            }
+          ],
+          "rss_pico_mb": 630.4375
+        }
+      }
+    },
+    "bun": {
+      "rodadas": 3,
+      "partida_ms": 2407,
+      "rss_ocioso_mb": 270.15625,
+      "rss_pos_carga_mb": 883.796875,
+      "rotas": {
+        "__next_static_chunks_0-vzw9b9ro8gx.js": {
+          "rps": 10756.878142984342,
+          "p50_ms": 4.398583,
+          "p99_ms": 9.906540999999999,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 163159
+            },
+            {
+              "200": 160515
+            },
+            {
+              "200": 161344
+            }
+          ],
+          "rss_pico_mb": 1066.6875
+        },
+        "_api_v1_health": {
+          "rps": 1491.9010159238653,
+          "p50_ms": 30.921125,
+          "p99_ms": 76.215541,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "503": 22331
+            },
+            {
+              "503": 22380
+            },
+            {
+              "503": 22051
+            }
+          ],
+          "rss_pico_mb": 1031.828125
+        },
+        "_login": {
+          "rps": 465.4118492053945,
+          "p50_ms": 102.80270800000001,
+          "p99_ms": 166.802042,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 7047
+            },
+            {
+              "200": 6933
+            },
+            {
+              "200": 6893
+            }
+          ],
+          "rss_pico_mb": 737.734375
+        },
+        "_raiz": {
+          "rps": 661.33756070078,
+          "p50_ms": 73.190125,
+          "p99_ms": 118.92404099999999,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 9872
+            },
+            {
+              "200": 10120
+            },
+            {
+              "200": 9687
+            }
+          ],
+          "rss_pico_mb": 691.03125
+        }
+      }
+    }
+  },
+  "app_container": {
+    "node": {
+      "rodadas": 3,
+      "partida_ms": 1287,
+      "mem_ocioso_mb": 308.69921875,
+      "mem_pico_mb": 455.6484375,
+      "oom_killed": [
+        false,
+        false,
+        false
+      ],
+      "reinicios": [
+        0,
+        0,
+        0
+      ],
+      "rotas": {
+        "_api_v1_health": {
+          "rps": 522.4964866698111,
+          "p99_ms": 219.5655,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "503": 7851
+            },
+            {
+              "503": 7790
+            },
+            {
+              "503": 7708
+            }
+          ]
+        },
+        "_login": {
+          "rps": 387.18877288115374,
+          "p99_ms": 221.125541,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 5760
+            },
+            {
+              "200": 5803
+            },
+            {
+              "200": 5215
+            }
+          ]
+        },
+        "_raiz": {
+          "rps": 503.3558934036618,
+          "p99_ms": 171.378917,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 7725
+            },
+            {
+              "200": 7502
+            },
+            {
+              "200": 7044
+            }
+          ]
+        }
+      }
+    },
+    "bun": {
+      "rodadas": 3,
+      "partida_ms": 1495,
+      "mem_ocioso_mb": 331.30859375,
+      "mem_pico_mb": 678.68359375,
+      "oom_killed": [
+        false,
+        false,
+        false
+      ],
+      "reinicios": [
+        0,
+        0,
+        0
+      ],
+      "rotas": {
+        "_api_v1_health": {
+          "rps": 1372.4412092219504,
+          "p99_ms": 106.55125,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "503": 20541
+            },
+            {
+              "503": 20932
+            },
+            {
+              "503": 19725
+            }
+          ]
+        },
+        "_login": {
+          "rps": 709.2878369914866,
+          "p99_ms": 119.84308300000001,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 10593
+            },
+            {
+              "200": 10406
+            },
+            {
+              "200": 10592
+            }
+          ]
+        },
+        "_raiz": {
+          "rps": 977.1941220875601,
+          "p99_ms": 92.354583,
+          "sucesso": 1.0,
+          "status": [
+            {
+              "200": 14899
+            },
+            {
+              "200": 14203
+            },
+            {
+              "200": 14613
+            }
+          ]
+        }
+      }
+    }
+  },
+  "resistencia": {
+    "node": {
+      "rps": 390.3414410417735,
+      "p99_ms": 422.633042,
+      "sucesso": 1.0,
+      "status": {
+        "200": 70163
+      },
+      "erros": {
+        "aborted due to deadline": 100
+      },
+      "mem_pico_mb": 442.2265625,
+      "mem_final_carga_mb": 326.26953125,
+      "estado": {
+        "oom_killed": false,
+        "reinicios": 0,
+        "rodando": true
+      }
+    },
+    "bun": {
+      "rps": 732.0635991355616,
+      "p99_ms": 220.915667,
+      "sucesso": 1.0,
+      "status": {
+        "200": 131675
+      },
+      "erros": {
+        "aborted due to deadline": 100
+      },
+      "mem_pico_mb": 762.4453125,
+      "mem_final_carga_mb": 643.0,
+      "estado": {
+        "oom_killed": false,
+        "reinicios": 0,
+        "rodando": true
+      }
+    }
+  },
+  "memoria_anonima": {
+    "node": {
+      "anon_max_mb": 307,
+      "anon_estavel_mb": 285.0,
+      "rps": 398.7985649192869,
+      "p99_ms": 318.336084
+    },
+    "bun": {
+      "anon_max_mb": 573,
+      "anon_estavel_mb": 551.0,
+      "rps": 717.5545576659417,
+      "p99_ms": 229.645542
+    },
+    "bun-smol": {
+      "anon_max_mb": 574,
+      "anon_estavel_mb": 547.0,
+      "rps": 731.0420753613815,
+      "p99_ms": 223.167041
+    },
+    "bun-ram768": {
+      "anon_max_mb": 574,
+      "anon_estavel_mb": 549.5,
+      "rps": 719.814129760405,
+      "p99_ms": 231.048166
+    }
+  },
+  "worker": {
+    "node": {
+      "partida_ms": 2924,
+      "rss_5s_kb": 267712,
+      "rss_ocioso_med_kb": 222098,
+      "rss_ocioso_max_kb": 267712,
+      "cpu_ocioso_60s_s": 0.41,
+      "rss_pos_metrics_kb": 230608,
+      "sigterm_ms": 50,
+      "codigos_saida": [
+        0,
+        0,
+        0
+      ],
+      "metrics_rps": 3707.339257743573,
+      "rodadas": 3
+    },
+    "bun": {
+      "partida_ms": 994,
+      "rss_5s_kb": 159424,
+      "rss_ocioso_med_kb": 158661,
+      "rss_ocioso_max_kb": 159664,
+      "cpu_ocioso_60s_s": 0.26,
+      "rss_pos_metrics_kb": 160560,
+      "sigterm_ms": 49,
+      "codigos_saida": [
+        0,
+        0,
+        0
+      ],
+      "metrics_rps": 3946.865475280046,
+      "rodadas": 3
+    }
+  },
+  "imagens": {
+    "app": {
+      "node_mb": 928.353457,
+      "bun_mb": 840.925951,
+      "nota": "só a base do runner muda"
+    },
+    "worker": {
+      "node_mb": 3639.139947,
+      "bun_mb": 1901.762117,
+      "nota": "o Dockerfile do Bun é multi-stage; a maior parte do ganho vem disso (store do pnpm fica no estágio descartado), não do runtime"
+    }
+  }
+}
