@@ -239,7 +239,7 @@ const GATILHO_ESPERADO: Record<string, { condicao: string | null; efeito: string
   "sync-fork.yml::sync": {
     condicao: "github.repository == 'rafaelcesardev/DeskcommCRM'",
     efeito:
-      "Mantém a main deste fork sincronizada com o original a cada hora. A condição " +
+      "Mantém a main deste fork sincronizada com o original três vezes ao dia. A condição " +
       "restringe a automação ao fork; desligá-la interrompe essa sincronização.",
   },
   "acolhida.yml::acolher": {
