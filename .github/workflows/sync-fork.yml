@@ -2,7 +2,7 @@ name: Sincronizar main do fork
 
 on:
   schedule:
-    - cron: "37 * * * *"
+    - cron: "0 9,15,21 * * *"
   workflow_dispatch:
 
 permissions: {}
