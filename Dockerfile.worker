@@ -1,7 +1,18 @@
 # Worker 24/7 do agent-engine (fusão Vendaval) — processo long-running fora do Next.
-# Roda TS direto via tsx (sem build): o worker é I/O-bound e o cold start não importa.
-# ponytail: imagem single-stage com devDeps (tsx precisa); multi-stage + prune é Fase 4.
-FROM node:22-alpine
+# Roda TS direto no Bun (sem build e sem tsx). As dependências seguem instaladas
+# pelo pnpm do lockfile, num estágio Node; só o runtime é Bun. Medido em
+# evidence/runtime-bun/: partida 66% mais rápida e RSS ocioso ~30% menor.
+FROM node:22-alpine AS deps
+WORKDIR /app
+# pnpm fixado na versão do lockfile do repo (pnpm 10 bloquearia build scripts).
+RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
+COPY package.json pnpm-lock.yaml ./
+COPY patches ./patches
+RUN pnpm install --frozen-lockfile
+
+# Tag exata, nunca móvel (doutrina de packaging, invariante 4). Mesma libc
+# (musl) do estágio acima, então os binários nativos instalados ali servem.
+FROM oven/bun:1.4.3-alpine
 
 WORKDIR /app
 
@@ -10,13 +21,7 @@ LABEL org.opencontainers.image.source="https://github.com/melgarafael/DeskcommCR
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.title="DeskcommCRM worker"
 
-# pnpm fixado na versão do lockfile do repo (pnpm 10 bloquearia build scripts).
-RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
-
-COPY package.json pnpm-lock.yaml ./
-COPY patches ./patches
-RUN pnpm install --frozen-lockfile
-
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # A versão por ÚLTIMO. Declarada antes do `pnpm install`, como estava, a
@@ -29,13 +34,13 @@ ENV APP_VERSION=$APP_VERSION
 # Healthz do worker (bind 0.0.0.0 dentro do container).
 EXPOSE 8787
 
-# O PID 1 é o NODE, não o pnpm (#2823). `pnpm exec` (execa 5) põe DUAS camadas
+# O PID 1 é o RUNTIME, não o pnpm (#2823). `pnpm exec` (execa 5) põe DUAS camadas
 # de processo entre o supervisor e o worker, e o execa tem forceKillAfterTimeout
 # de 5000 ms: num `docker stop` com envio em voo, o SIGTERM chega ao wrapper e o
-# tsx é morto à força ~5 s depois — ANTES de gravar o recibo. O job sai de lá
-# `running`/draft sending com o POST já feito. `node --import tsx` registra o
-# loader no PRÓPRIO processo: o sinal cai direto no handler do shutdown, que
-# drena os jobs em curso e sai 0. Não é conserto de prazo: nenhum timeout de
-# supervisor, healthcheck ou stop_grace_period mudou (a issue #2823 proíbe o
-# aumento de timeout como único remédio).
-CMD ["node", "--import", "tsx", "workers/agent-worker/main.ts"]
+# worker é morto à força ~5 s depois — ANTES de gravar o recibo. O job sai de lá
+# `running`/draft sending com o POST já feito. O Bun executa o TS no PRÓPRIO
+# processo: o sinal cai direto no handler do shutdown, que drena os jobs em
+# curso e sai 0. Não é conserto de prazo: nenhum timeout de supervisor,
+# healthcheck ou stop_grace_period mudou (a issue #2823 proíbe o aumento de
+# timeout como único remédio).
+CMD ["bun", "workers/agent-worker/main.ts"]

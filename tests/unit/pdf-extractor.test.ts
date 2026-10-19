@@ -196,7 +196,41 @@ describe("extractPdfText — estratégia `processo-a-parte`", () => {
     // App Next, vitest, node puro: nada muda.
     expect(estrategiaPadrao([])).toBe("em-processo");
     expect(estrategiaPadrao(["--max-old-space-size=256"])).toBe("em-processo");
+    // O worker sob o Bun (imagem de produção): sem tsx, mas o isolamento vale.
+    expect(estrategiaPadrao([], true)).toBe("processo-a-parte");
+    expect(estrategiaPadrao([], false)).toBe("em-processo");
   });
+
+  // `/proc` só existe em Linux — o CI e a VPS. No macOS o vigia não tem o que ler.
+  it.runIf(process.platform === "linux")(
+    "sob o Bun, o filho que passa do teto de RSS é morto e vira PdfExtractError",
+    () => {
+      // O Bun ignora `--max-old-space-size`: sem o vigia, o filho cresceria até o
+      // `mem_limit` do contêiner e o OOM killer escolheria o worker. 30 MB fica
+      // abaixo do que o runtime sozinho custa (~100 MB), então o vigia TEM de agir.
+      const script = `
+        import { readFileSync } from "node:fs";
+        import { extractPdfText } from "@/lib/ai/rag/extractors/pdf";
+        const pdf = readFileSync("tests/fixtures/sample-multipagina.pdf");
+        const opcoes = { estrategia: "processo-a-parte" };
+        const erro = await extractPdfText(pdf, { ...opcoes, rssMb: 30 }).then(() => null, (e) => e);
+        const texto = await extractPdfText(pdf, opcoes);
+        process.stdout.write(JSON.stringify({ nome: erro?.name, msg: erro?.message, texto }));
+      `;
+      const saida = execFileSync("bun", ["--eval", script], {
+        cwd: raiz,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        timeout: 60_000,
+      });
+      const r = JSON.parse(saida) as { nome?: string; msg?: string; texto: string };
+      expect(r.nome).toBe("PdfExtractError");
+      expect(r.msg).toMatch(/teto de memória \(30 MB de RSS\)/);
+      // O pai continua vivo e extraindo com o teto padrão.
+      expect(r.texto).toContain("Pagina um linha um");
+    },
+    60_000,
+  );
 
   it("sob o tsx DE VERDADE, o pai extrai sem carregar o pdfjs no próprio heap", () => {
     // Este é o único caso que exercita o caminho que o worker de produção

@@ -699,18 +699,18 @@ jobs:
           set -euo pipefail
           # Env de mentira, igual à do smoke do app: o runner não tem Supabase.
           # Montar o admin client não abre conexão — o que se mede aqui é o
-          # CAMINHO DE BOOT (o import sob `tsx`), não o banco.
-          # `--entrypoint pnpm`: a sonda substitui o CMD do worker e prova o
+          # CAMINHO DE BOOT (o import sob o `bun`, o runtime da imagem), não o banco.
+          # `--entrypoint bun`: a sonda substitui o CMD do worker e prova o
           # carregamento sem depender de o entrypoint da imagem ser executável
           # fora do cluster.
           saida=$(docker run --rm --name worker-laco \
-            --entrypoint pnpm \
+            --entrypoint bun \
             -e NEXT_PUBLIC_SUPABASE_URL=https://exemplo.supabase.co \
             -e NEXT_PUBLIC_SUPABASE_ANON_KEY=chave-de-mentira \
             -e SUPABASE_SERVICE_ROLE_KEY=chave-de-mentira \
             -e SENTRY_DSN=off \
             deskcomm-worker:pr \
-            exec tsx scripts/sonda-do-laco-de-event-log.ts)
+            scripts/sonda-do-laco-de-event-log.ts)
 
           echo "$saida"
           printf '%s' "$saida" | tail -1 | grep -q '"ok":true' || {
@@ -754,14 +754,14 @@ jobs:
             deskcomm-worker:pr
 
           # ESPERA UM SINAL, e não o `docker ps`: o contêiner fica `running` 0,2s
-          # depois do `run -d` — antes de o `tsx` importar a primeira linha. O loop
+          # depois do `run -d` — antes de o `bun` importar a primeira linha. O loop
           # antigo saía na PRIMEIRA volta, lia logs vazios e um `/healthz` que
           # ninguém ainda escutava, e reprovava um worker SADIO (medido: run
           # 35099604595, o passo morreu 0,2s depois do `docker run`). Esperar o
           # sinal é o que separa "não bootou" de "ainda não bootou".
           estado=nao_bootou
           corpo=""
-          for _ in $(seq 1 30); do          # até 90s: tsx + pool + a query do harness
+          for _ in $(seq 1 30); do          # até 90s: import + pool + a query do harness
             sleep 3
             if ! docker ps --filter name=worker-boot --filter status=running -q | grep -q .; then
               estado=saiu
@@ -775,7 +775,7 @@ jobs:
             # Defeito FATAL já escrito no log: não há por que esperar os 90s — a
             # classificação abaixo reprova por estes mesmos marcadores, então o
             # veredito não muda; só não fica 90s parado para dizê-lo.
-            if printf '%s' "$logs_ate_agora" | grep -qE 'event-log drain OFF|Cannot find module|ERR_MODULE_NOT_FOUND|Cannot use import statement'; then
+            if printf '%s' "$logs_ate_agora" | grep -qE 'event-log drain OFF|Cannot find module|Cannot find package|ERR_MODULE_NOT_FOUND|Cannot use import statement'; then
               estado=fatal_no_log
               break
             fi
@@ -807,7 +807,7 @@ jobs:
           # 2) Cadeia de boot quebrada (import/módulo) — a classe da #648. Vale nos
           #    DOIS estados: o contêiner pode ter morrido, ou ter ficado de pé com a
           #    exceção engolida em outro laço do boot.
-          if grep -qE 'Cannot find module|ERR_MODULE_NOT_FOUND|Cannot use import statement|SyntaxError|is not a function|Failed to resolve' boot.log; then
+          if grep -qE 'Cannot find module|Cannot find package|ERR_MODULE_NOT_FOUND|Cannot use import statement|SyntaxError|is not a function|Failed to resolve' boot.log; then
             echo "::error::o worker morreu com a CADEIA DE BOOT quebrada (import/módulo) — a classe da #648."
             exit 1
           fi

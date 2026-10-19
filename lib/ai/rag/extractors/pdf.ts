@@ -50,9 +50,15 @@
  * sob o `tsx` (os hooks dele aparecem em `process.execArgv`). No app Next o
  * pdfjs vive dentro do bundle, não existe `pdf.mjs` em disco no standalone, e
  * o custo do `tsx` não existe — então lá nada muda.
+ *
+ * Sob o Bun (o runtime das imagens de produção) o worker roda TS sem `tsx`, e o
+ * custo de heap acima some — mas o ISOLAMENTO continua valendo, então o worker
+ * sob Bun também extrai no filho. Dentro do Next (`NEXT_RUNTIME` definido) o
+ * caminho segue `em-processo`, como sob o Node.
  */
 
 import { spawn } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { pathToFileURL } from "node:url";
 
@@ -97,6 +103,14 @@ export interface OpcoesDeExtracao {
    * worker (~170 MB) + filho (heap + ~70 MB de runtime) cabem nos 512 MB.
    */
   heapMb?: number;
+  /**
+   * Teto de RSS do filho, em MB, que só vale sob o Bun: o JavaScriptCore ignora
+   * `--max-old-space-size` (medido: com teto 160 o filho passou de 2,4 GB), então
+   * o pai mede o RSS do filho e o mata acima disto. Padrão `heapMb + 96`, o RSS
+   * em que o filho Node morre pelo teto de heap (o runtime sozinho custa ~100 MB
+   * nos dois). Só em Linux, que é onde existe `/proc`.
+   */
+  rssMb?: number;
   /** Depois disto o filho é morto e a extração falha com `PdfExtractError`. */
   timeoutMs?: number;
 }
@@ -108,8 +122,21 @@ const TEMPO_MAXIMO_MS = 60_000;
 /** `processo-a-parte` só sob o `tsx` — é o único lugar onde o custo existe. */
 export function estrategiaPadrao(
   execArgv: readonly string[] = process.execArgv,
+  bunForaDoNext: boolean = Boolean(process.versions.bun) && !process.env.NEXT_RUNTIME,
 ): EstrategiaDeExtracao {
+  if (bunForaDoNext) return "processo-a-parte";
   return execArgv.some((arg) => /[\\/]tsx[\\/]/.test(arg)) ? "processo-a-parte" : "em-processo";
+}
+
+/** RSS de um processo em MB, por `/proc`; `null` fora do Linux ou se ele já saiu. */
+function rssEmMb(pid: number | undefined): number | null {
+  if (pid === undefined) return null;
+  try {
+    const paginas = Number(readFileSync(`/proc/${pid}/statm`, "utf8").split(" ")[1]);
+    return (paginas * 4096) / 1048576;
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -272,6 +299,7 @@ async function extrairEmProcessoAParte(
   opcoes: OpcoesDeExtracao,
 ): Promise<string> {
   const heapMb = opcoes.heapMb ?? HEAP_DO_FILHO_MB;
+  const rssMb = opcoes.rssMb ?? heapMb + 96;
   const timeoutMs = opcoes.timeoutMs ?? TEMPO_MAXIMO_MS;
 
   let url: string;
@@ -295,10 +323,20 @@ async function extrairEmProcessoAParte(
     let stdout = "";
     let stderr = "";
     let expirou = false;
+    let estourou = false;
     const relogio = setTimeout(() => {
       expirou = true;
       filho.kill("SIGKILL");
     }, timeoutMs);
+    // Sob o Bun o `--max-old-space-size` acima é ignorado; este é o teto.
+    const vigia = process.versions.bun
+      ? setInterval(() => {
+          if ((rssEmMb(filho.pid) ?? 0) > rssMb) {
+            estourou = true;
+            filho.kill("SIGKILL");
+          }
+        }, 100)
+      : undefined;
     filho.stdout.on("data", (c: Buffer) => {
       stdout += c.toString("utf8");
     });
@@ -307,10 +345,20 @@ async function extrairEmProcessoAParte(
     });
     filho.on("error", (err) => {
       clearTimeout(relogio);
+      clearInterval(vigia);
       reject(new PdfExtractError(`não consegui abrir o processo de extração: ${err.message}`, err));
     });
     filho.on("close", (codigo, sinal) => {
       clearTimeout(relogio);
+      clearInterval(vigia);
+      if (estourou) {
+        reject(
+          new PdfExtractError(
+            `o processo de extração passou do teto de memória (${rssMb} MB de RSS) e foi interrompido`,
+          ),
+        );
+        return;
+      }
       if (expirou) {
         reject(new PdfExtractError(`a extração do PDF excedeu ${timeoutMs} ms e foi interrompida`));
         return;

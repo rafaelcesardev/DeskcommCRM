@@ -13,6 +13,12 @@
  *                                  com o PID 1.
  *   ["node","--import","tsx"]    → drena os 6 s, sai com 0 e o recibo está
  *                                  gravado no instante em que o processo sai.
+ *   ["bun"]                      → o mesmo: o Bun executa o TS no próprio
+ *                                  processo (runtime das imagens desde a
+ *                                  migração medida em evidence/runtime-bun/).
+ *
+ * O ensaio executa o launcher, então este arquivo precisa do `bun` no PATH —
+ * o job do CI o instala (`oven-sh/setup-bun`).
  *
  * Por isso os dois casos aqui leem o CMD do arquivo em vez de fixar o launcher
  * na mão: revertendo o CMD, os dois caem juntos.
@@ -106,11 +112,23 @@ async function sigtermComEnvioEmVoo(): Promise<Ensaio> {
 }
 
 describe("o PID 1 do worker drena o envio em voo (#2823)", () => {
-  it("o CMD é node --import tsx — sem pnpm/execa entre o supervisor e o worker", () => {
+  it("o CMD é o bun direto — sem pnpm/execa entre o supervisor e o worker", () => {
     // A regressão central da issue: uma camada de processo entre quem recebe o
     // sinal e quem tem de terminar o envio. Fixar a forma exata também pega um
     // "conserto" que troque o CMD por outro launcher com a mesma camada.
-    expect(cmdDoWorker()).toEqual(["node", "--import", "tsx", "workers/agent-worker/main.ts"]);
+    expect(cmdDoWorker()).toEqual(["bun", "workers/agent-worker/main.ts"]);
+  });
+
+  it("o bun que o CI usa para este ensaio é o mesmo das imagens", () => {
+    // Sem isto, o ensaio abaixo poderia passar num Bun e a imagem sair com outro.
+    const daImagem = (arquivo: string) =>
+      readFileSync(path.join(RAIZ, arquivo), "utf8").match(/^FROM oven\/bun:([\d.]+)-alpine/m)?.[1];
+    const doCi = readFileSync(path.join(RAIZ, ".github/workflows/ci.yml"), "utf8").match(
+      /oven-sh\/setup-bun@v\d+[\s\S]*?bun-version:\s*([\d.]+)/,
+    )?.[1];
+    expect(doCi).toBeDefined();
+    expect(daImagem("Dockerfile")).toBe(doCi);
+    expect(daImagem("Dockerfile.worker")).toBe(doCi);
   });
 
   it(
