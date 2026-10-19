@@ -187,8 +187,9 @@ describe("scripts/sonda-pdf-na-imagem.mjs", () => {
 
     // A imagem precisa existir antes de a sonda rodar.
     expect(job.indexOf("deskcomm-smoke:pr")).toBeLessThan(job.indexOf("sonda-pdf-na-imagem.mjs"));
-    // ...e a sonda roda DENTRO dela: mesma tag, executando o script montado.
-    expect(job).toMatch(/deskcomm-smoke:pr node \/sonda-pdf-na-imagem\.mjs/);
+    // ...e a sonda roda DENTRO dela: mesma tag, executando o script montado com o
+    // runtime da imagem (o Bun; ver o `FROM` do runner no Dockerfile).
+    expect(job).toMatch(/deskcomm-smoke:pr bun \/sonda-pdf-na-imagem\.mjs/);
     // O PDF de amostra é o MESMO do teste de extração do repositório, montado do runner.
     expect(job).toContain("tests/fixtures/sample-text.pdf:/fixture.pdf");
     expect(job).toContain("scripts/sonda-pdf-na-imagem.mjs:/sonda-pdf-na-imagem.mjs");

@@ -481,7 +481,7 @@ jobs:
             -v "$PWD/tests/fixtures/sample-text.pdf:/fixture.pdf:ro" \
             -v "$PWD/scripts/sonda-pdf-na-imagem.mjs:/sonda-pdf-na-imagem.mjs:ro" \
             -e PDF_ESPERADO="DeskcommCRM RAG fixture" \
-            deskcomm-smoke:pr node /sonda-pdf-na-imagem.mjs
+            deskcomm-smoke:pr bun /sonda-pdf-na-imagem.mjs
 
       - name: Encerrar
         if: always()

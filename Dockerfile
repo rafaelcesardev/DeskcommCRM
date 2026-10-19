@@ -79,7 +79,13 @@ RUN PDFJS_DIR=$(basename node_modules/.pnpm/pdfjs-dist@*) && \
        ".next/standalone/.next/server/chunks/pdf.worker.mjs"
 
 # ---- runner: imagem slim de produção ----
-FROM node:22-alpine AS runner
+# Runtime Bun, não Node: o build acima segue em Node (pnpm + next build), e só
+# quem SERVE o standalone muda. Medido em evidence/runtime-bun/: o mesmo
+# server.js responde com +64% a +122% de vazão e p99 26–59% menor, e termina a
+# carga com 28% menos RSS. Mesma libc (musl) do estágio de build, então os
+# binários nativos que o standalone carrega (sharp, @napi-rs/canvas) servem.
+# Tag exata, nunca móvel (doutrina de packaging, invariante 4).
+FROM oven/bun:1.4.3-alpine AS runner
 WORKDIR /app
 
 # Procedência (doutrina de packaging, invariante 2). O CI já injeta os labels
@@ -130,4 +136,4 @@ COPY --from=build --chown=nextjs:nodejs /app/public ./public
 USER nextjs
 EXPOSE 3000
 # server.js é o entrypoint gerado pelo output standalone.
-CMD ["node", "server.js"]
+CMD ["bun", "server.js"]
