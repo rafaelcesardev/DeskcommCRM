@@ -9,7 +9,7 @@ import { createLeadSchema } from "@/lib/schemas/leads";
 import { beginServiceAtOrigin } from "@/lib/atendimento/origem";
 import { capabilitiesOf } from "@/lib/channels/capabilities";
 import type { ChannelProvider } from "@/lib/channels/types";
-import { phoneLookupVariants } from "@/lib/channels/phone-variants";
+import { canonicalPhoneBR, phoneLookupVariants } from "@/lib/channels/phone-variants";
 import { decryptWebhookSecret, encryptWebhookSecret } from "@/lib/webhooks/secrets";
 import {
   campaignConfigSchema,
@@ -25,6 +25,9 @@ import {
 import { CanalReconectandoError, ProspectingError } from "./provider";
 import { audit } from "@/lib/audit";
 import { vereditoPuro } from "./site-classify";
+import { linksDoCandidato } from "./links-do-candidato";
+import { aplicarLinks } from "@/lib/leads/links-de-contato";
+import { logger } from "@/lib/logger";
 import { pedidoDaProspeccao } from "./pedido-da-prospeccao";
 import {
   provedorDaOrganizacao,
@@ -529,10 +532,19 @@ export async function triarCandidato(
   p: Candidate,
 ): Promise<{ motivo: string } | { contatoDaCampanha: string | null }> {
   if (!p.phone) return { motivo: "Sem telefone brasileiro válido." };
-  const known = await db.query(
+  let known = await db.query(
     "select id from contacts where organization_id=$1 and phone_number=any($2::text[])",
     [org, phoneLookupVariants(p.phone)],
   );
+  // Sem principal com o número, conta como existente a ficha que o tem como EXTRA
+  // (`contact_phones`, forma canônica). Sem isto, a prospecção criava um contato
+  // novo por cima de um atendimento que já existe no CRM.
+  if (known.rows.length === 0) {
+    known = await db.query(
+      "select cp.contact_id as id from contact_phones cp join contacts c on c.id = cp.contact_id and c.organization_id = cp.organization_id where cp.organization_id=$1 and cp.phone_number=$2 and c.is_merged_into is null limit 1",
+      [org, canonicalPhoneBR(p.phone)],
+    );
+  }
   let contactId = p.contact_id;
   if (known.rows.length && !contactId) {
     const owned = await db.query(
@@ -544,6 +556,24 @@ export async function triarCandidato(
   if (known.rows.length && !contactId)
     return { motivo: "Contato já existe no CRM; atendimento preservado." };
   return { contatoDaCampanha: contactId };
+}
+
+/**
+ * Os `link_<tipo>` que o contato NOVO já nasce carregando (Spec 26 §3.2). Fail-open: o
+ * mapeador não deveria lançar, mas se algo escapar o contato nasce sem links e a criação
+ * segue. Devolve `undefined` quando não há link, para não mandar `custom_fields` vazio.
+ */
+function linksParaContatoNovo(p: Candidate): Record<string, unknown> | undefined {
+  try {
+    const campos = aplicarLinks({}, linksDoCandidato(p.data));
+    return Object.keys(campos).length > 0 ? campos : undefined;
+  } catch (error) {
+    logger.warn("[prospecting] mapeador de links falhou; o contato nasce sem links", {
+      candidate_id: p.id,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    return undefined;
+  }
 }
 
 /**
@@ -598,6 +628,7 @@ export async function criarPegadaDoCandidato(
   });
   let contactId = contatoDaCampanha ?? p.contact_id;
   if (!contactId) {
+    const linksDoNovo = linksParaContatoNovo(p);
     const contact = await createContactHandler(admin, ctx, {
       name: p.data.name,
       display_name: p.data.name,
@@ -605,6 +636,7 @@ export async function criarPegadaDoCandidato(
       source: "prospecting",
       source_metadata: { campaign_id: c.id, place_id: p.data.key, maps_url: p.data.maps_url },
       consent: { legitimate_interest: { ref: config.legal_basis_ref } },
+      ...(linksDoNovo ? { custom_fields: linksDoNovo } : {}),
     });
     contactId = String(contact.contact.id);
     await db.query(
@@ -612,6 +644,10 @@ export async function criarPegadaDoCandidato(
       [org, p.id, contactId],
     );
   }
+  // Contato que já existe (criado antes, ou reaproveitado da campanha) NÃO é tocado aqui.
+  // Decisão do dono (spec 26 §7.1): ficha que já existe só recebe links pelo botão
+  // "Completar fichas"; preencher sozinho a cada envio traria de volta um link que a pessoa
+  // apagou. O contato novo, acima, continua nascendo com os links.
   let leadId = p.lead_id;
   if (!leadId) {
     const existing = await db.query(
