@@ -50,6 +50,11 @@ export const DICIONARIO: Traducoes = {
   "Últimos avisos de casos": { es: "Últimos avisos de casos" },
   "Esta lista registra avisos de casos. O resultado dos avisos de transferência para atendimento humano aparece no respectivo item da Central de alertas.": { es: "Esta lista registra avisos de casos. El resultado de los avisos de transferencia a atención humana aparece en el elemento correspondiente de la Central de alertas." },
   "Ainda não há avisos de casos nesta lista. As tentativas aparecem aqui quando o assistente abre um caso, inclusive se falharem.": { es: "Todavía no hay avisos de casos en esta lista. Los intentos aparecen aquí cuando el asistente abre un caso, incluso si fallan." },
+  // #1418 — o aviso agendado para o futuro é recusado (não há quem o publique
+  // depois nesta fatia). A frase diz o que fazer: publicar agora ou sem data.
+  "O agendamento de aviso ainda não está disponível. Publique agora ou envie sem data de publicação.": {
+    es: "La programación de avisos aún no está disponible. Publica ahora o envía sin fecha de publicación.",
+  },
   "Preencher o nome que o cliente informa no atendimento": { es: "Completar el nombre que el cliente informa durante la atención" },
   "Quando o assistente identifica o próprio nome informado por texto e usa a capacidade Anotar dado que o cliente informou, pode preencher o nome vazio da ficha. O apelido do WhatsApp fica separado. Nomes existentes e e-mail continuam exigindo revisão humana. Confira a ficha se o assistente interpretar a mensagem incorretamente.": { es: "Cuando el asistente identifica el nombre propio informado por texto y usa la capacidad Anotar un dato que el cliente informó, puede completar el nombre vacío de la ficha. El apodo de WhatsApp queda separado. Los nombres existentes y el correo siguen requiriendo revisión humana. Revise la ficha si el asistente interpreta incorrectamente el mensaje." },
   "Ligado para novas mensagens de atendimento.": { es: "Activado para nuevos mensajes de atención." },
@@ -1543,6 +1548,23 @@ export const DICIONARIO: Traducoes = {
   "Não iniciada: o atendimento ou a resposta do cliente mudou.": { es: "No iniciada: cambió la atención o la respuesta del cliente." },
   "Sem contato vinculado. Este compromisso não inicia uma recuperação.": { es: "Sin contacto vinculado. Esta cita no inicia una recuperación." },
   "Recuperação iniciada e interrompida porque o cliente respondeu.": { es: "Recuperación iniciada e interrumpida porque el cliente respondió." },
+  // #3848 — o selo da mensagem que o fluxo mandou PULAR por causa da agenda, na
+  // Inbox. O caso não é falha: a escolha do fluxo é não enviar com compromisso
+  // marcado, e o selo diz isso com o motivo medido pela guarda.
+  "Pulada pela agenda": { es: "Omitida por la agenda" },
+  "O contato tem compromisso marcado na agenda — o fluxo está configurado para não enviar quando isso acontece.": {
+    es: "El contacto tiene una cita agendada — el flujo está configurado para no enviar cuando eso ocurre.",
+  },
+  "O contato está na agenda agora — o fluxo está configurado para não enviar quando isso acontece.": {
+    es: "El contacto está en la cita ahora — el flujo está configurado para no enviar cuando eso ocurre.",
+  },
+  "O compromisso do contato já terminou e a presença ainda não foi confirmada — o fluxo está configurado para não enviar quando isso acontece.": {
+    es: "La cita del contacto ya terminó y la asistencia aún no se ha confirmado — el flujo está configurado para no enviar cuando eso ocurre.",
+  },
+  "Compromisso: {titulo}": { es: "Cita: {titulo}" },
+  "Para mandar mesmo assim, mude a escolha do fluxo ou escreva pelo campo de resposta.": {
+    es: "Para enviar de todos modos, cambia la opción del flujo o escribe desde el campo de respuesta.",
+  },
   "Revise o próximo passo.": { es: "Revisa el siguiente paso." },
   "Revisar acompanhamentos": { es: "Revisar seguimientos" },
   "Mensagem do cliente usada como evidência (opcional)": { es: "Mensaje del cliente usado como evidencia (opcional)" },
@@ -18717,6 +18739,16 @@ export const DICIONARIO: Traducoes = {
     es: "Define la meta en Configuración › Meta de ventas para ver aquí cuánto se ha hecho ya y cuánto falta.",
   },
   "Definir a meta": { es: "Definir la meta" },
+  // As duas parcelas do período (fatia 2, item 1, da #3602). O sufixo é chave
+  // curta pelo mesmo motivo dos conectivos acima: ele é colado ao valor.
+  "Vendido único": { es: "Vendido único" },
+  "Recorrência nova (mensal)": { es: "Recurrencia nueva (mensual)" },
+  // `/mês` já existe desde o card da fatia 1 (uma chave, um tradutor).
+  "negócio com recorrência": { es: "negocio con recurrencia" },
+  "negócios com recorrência": { es: "negocios con recurrencia" },
+  "Leitura parcial: as parcelas somam o que foi lido no período.": {
+    es: "Lectura parcial: las partes suman lo que se leyó en el período.",
+  },
   "Só quem administra a empresa define a meta.": {
     es: "Solo quien administra la empresa define la meta.",
   },
@@ -18926,6 +18958,11 @@ export const DICIONARIO: Traducoes = {
   },
   "Ligado, cada empresa ganha na Equipe a aba Setores, para agrupar os atendentes por área, e a aba Atendimento passa a mostrar e filtrar o setor de cada um. A conversa com setor definido vai só para quem atende aquele setor, dentro do horário dele; conversa sem setor continua indo pelo número. Desligado, a aba e a coluna somem e a distribuição volta a ser a de antes; os setores já cadastrados ficam guardados.": { es: "Activado, cada empresa obtiene en Equipo la pestaña Sectores, para agrupar a los asesores por área, y la pestaña Atención pasa a mostrar y filtrar el sector de cada uno. La conversación con sector definido va solo a quien atiende ese sector, dentro de su horario; la conversación sin sector sigue yendo por el número. Desactivado, la pestaña y la columna desaparecen y la distribución vuelve a ser la de antes; los sectores ya registrados quedan guardados." },
   "Não cria porta no menu do CRM: ele libera uma aba em": { es: "No crea entrada en el menú del CRM: habilita una pestaña en" },
+  // O módulo opcional dos avisos para a equipe (#1418) em /admin/sistema e em Recursos opcionais.
+  "Avisos para a equipe": { es: "Avisos para el equipo" },
+  "O administrador da empresa escreve um aviso e ele chega como notificação nos aparelhos da equipe.": { es: "El administrador de la empresa escribe un aviso y este llega como notificación a los dispositivos del equipo." },
+  "Ligado, o administrador de cada empresa pode escrever um aviso com título e texto, e ele chega como notificação nos aparelhos da equipe que ativaram as notificações. Desligado, ninguém envia avisos; os já enviados ficam guardados.": { es: "Activado, el administrador de cada empresa puede escribir un aviso con título y texto, y este llega como notificación a los dispositivos del equipo que activaron las notificaciones. Desactivado, nadie envía avisos; los ya enviados quedan guardados." },
+  "Não cria porta no menu do CRM: por enquanto o aviso é enviado pela API, em /api/v1/avisos.": { es: "No crea entrada en el menú del CRM: por ahora el aviso se envía por la API, en /api/v1/avisos." },
   'Para não depender do dado, ponha um texto de reserva: {{primeiro_nome|"aluno"}}.': {
     es: 'Para no depender del dato, pon un texto de respaldo: {{primeiro_nome|"alumno"}}.',
   },
