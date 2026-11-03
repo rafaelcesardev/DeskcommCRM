@@ -50856,6 +50856,7 @@ declare
   v_origem text := coalesce(p_origem, 'manual');
   v_anterior uuid;
   v_conversa uuid;
+  v_dono_atual uuid;
 begin
   if v_origem not in ('manual', 'importacao', 'atribuicao_automatica', 'automacao') then
     raise exception 'carteira_origem_invalida' using errcode = '22023';
@@ -50874,17 +50875,56 @@ begin
   end if;
 
   if v_ator is not null then
-    -- Quem muda: manager+ da MESMA organização (e membro aceito, não revogado).
+    -- Quem muda: `agent`+ da MESMA organização (e membro aceito, não revogado).
+    -- #3746: o Atendente entrou nesta porta, mas com ESCOPO DE POSSE — o papel
+    -- sozinho não distingue "meu cliente" de "cliente do colega", e liberar o
+    -- papel seco deixaria qualquer Atendente se pôr como dono do cliente de
+    -- outro e levar o negócio seguinte no nome errado (o defeito do #2591).
     select uo.role into v_papel
       from public.user_organizations uo
      where uo.user_id = v_ator
        and uo.organization_id = p_org
        and uo.accepted_at is not null
        and uo.revoked_at is null;
-    if v_papel is null or v_papel not in ('manager', 'admin') then
+    if v_papel is null or v_papel not in ('agent', 'manager', 'admin') then
       raise exception 'carteira_permissao_negada'
         using errcode = '42501',
-              detail = 'Só manager e admin definem a carteira do cliente.';
+              detail = 'Só atendente, manager e admin definem a carteira do cliente.';
+    end if;
+    if v_papel = 'agent' then
+      -- A POSSE, conferida AQUI e não só na rota: esta é a porta ÚNICA de
+      -- gravação (`trg_contacts_carteira_so_pelo_servidor` recusa a sessão), e
+      -- um chamador novo não pode nascer sem a régua. Doc 250, escolha 1-B:
+      --   • o contato já está na carteira dele → passa (pode passar adiante);
+      --   • conversa do contato atribuída a ele + contato SEM dono → passa;
+      --   • conversa com ele + contato na carteira de OUTRO →
+      --     `carteira_permissao_negada`: tirar o cliente de um colega segue
+      --     sendo do gerente (a regra do #2591 — o rodízio não leva a venda
+      --     de quem atende o cliente);
+      --   • nenhuma das duas → `carteira_fora_da_posse`.
+      -- A rota traduz as duas recusas em 403.
+      select c.carteira_user_id into v_dono_atual
+        from public.contacts c
+       where c.id = p_contact
+         and c.organization_id = p_org;
+      if v_dono_atual is distinct from v_ator then
+        if not exists (
+             select 1
+               from public.conversations cv
+              where cv.organization_id = p_org
+                and cv.contact_id = p_contact
+                and cv.assigned_to_user_id = v_ator
+           ) then
+          raise exception 'carteira_fora_da_posse'
+            using errcode = '42501',
+                  detail = 'O atendente só muda a carteira do cliente que já está com ele: contato na carteira dele, ou conversa atribuída a ele com o contato sem dono.';
+        end if;
+        if v_dono_atual is not null then
+          raise exception 'carteira_permissao_negada'
+            using errcode = '42501',
+                  detail = 'O cliente está na carteira de outro vendedor: só manager e admin tiram o cliente da carteira de um colega.';
+        end if;
+      end if;
     end if;
     if v_origem = 'automacao' then
       raise exception 'carteira_origem_invalida'
@@ -66675,6 +66715,73 @@ grant  execute on function public.fn_crm_lead_close_on_stage() to authenticated,
 revoke execute on function public.fn_validate_lost_reason_required() from public, anon;
 grant  execute on function public.fn_validate_lost_reason_required() to authenticated, service_role;
 
+-- ---- papel único nos helpers de visibilidade (migration 9090) ----
+-- manifest: Reutiliza o papel uma vez por chamada de visibilidade, preservando curto-circuito master e regras por linha (#3882).
+-- Contexto por CHAMADA, não cache por consulta ou entre instruções.
+create or replace function public.fn_can_view_lead(
+  p_org uuid,
+  p_owner_user_id uuid
+) returns boolean
+language sql stable security definer
+set search_path = public
+as $$
+  select case
+    when public.fn_is_platform_admin() then true
+    else (
+      with actor as materialized (
+        select public.fn_user_role_in_org(p_org) as role
+      )
+      select case
+        when actor.role is null then false
+        when actor.role in ('viewer','manager','admin') then true
+        when p_owner_user_id = auth.uid() then true
+        else case coalesce(
+               (select settings->>'visibility_mode' from public.organizations where id = p_org),
+               'own_and_unassigned')
+             when 'all' then true
+             when 'own_and_unassigned' then p_owner_user_id is null
+             else false
+           end
+      end
+      from actor
+    )
+  end;
+$$;
+
+create or replace function public.fn_can_view_conversation(
+  p_org uuid,
+  p_assigned_to_user_id uuid
+) returns boolean
+language sql stable security definer
+set search_path = public
+as $$
+  select case
+    when public.fn_is_platform_admin() then true
+    else (
+      with actor as materialized (
+        select public.fn_user_role_in_org(p_org) as role
+      )
+      select case
+        when actor.role is null then false
+        when actor.role in ('viewer','manager','admin') then true
+        when p_assigned_to_user_id = auth.uid() then true
+        else case coalesce(
+               (select settings->>'visibility_mode' from public.organizations where id = p_org),
+               'own_and_unassigned')
+             when 'all' then true
+             when 'own_and_unassigned' then p_assigned_to_user_id is null
+             else false
+           end
+      end
+      from actor
+    )
+  end;
+$$;
+
+-- Mesma superfície já concedida na main; nenhuma role nova.
+REVOKE EXECUTE ON FUNCTION public.fn_can_view_lead(uuid,uuid), public.fn_can_view_conversation(uuid,uuid) FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.fn_can_view_lead(uuid,uuid), public.fn_can_view_conversation(uuid,uuid) TO authenticated, service_role;
+
 -- ---- VARREDURA anon: função nova nasce exposta em quem ATUALIZA (migration 0116) ----
 --
 -- ⚠️ DE PROPÓSITO, NENHUMA FUNÇÃO É CRIADA DEPOIS DESTE BLOCO. Apêndice que cria
@@ -71104,3 +71211,15 @@ create index if not exists avisos_org_publicar_idx
 alter table public.avisos enable row level security;
 revoke all on public.avisos from public, anon, authenticated;
 grant select, insert, update, delete on public.avisos to service_role;
+
+-- ---- cor da fila de atendimento (migration 9084) ----
+-- manifest: attendant_sectors.color — a cor de identificação da fila (`#rrggbb`) ou nula; o CHECK recusa fora do formato, então a forma vale mesmo fora da rota
+--
+-- Espelho da 9084. `null` é ausência de escolha (o visual de antes da fatia),
+-- não uma cor zero; por isso não há `default`.
+alter table public.attendant_sectors
+  add column if not exists color text
+  check (color is null or color ~ '^#[0-9a-fA-F]{6}$');
+
+comment on column public.attendant_sectors.color is
+  'Cor de identificação da fila (migration 9084): #rrggbb, ou NULL = sem cor. O CHECK guarda a FORMA; a paleta é a da tela (PALETA_DE_ETIQUETAS) e não se valida no banco. Lida por GET /api/v1/attendants/sectors e gravada por PATCH /api/v1/attendants/sectors/[id] (manager+).';
