@@ -40,6 +40,111 @@ import { TEXTOS_AGENDA_SERVICOS } from "./agenda-servicos";
 type Traducoes = Record<string, Partial<Record<Exclude<Idioma, "pt-BR">, string>>>;
 
 export const DICIONARIO: Traducoes = {
+  "Não consegui confirmar o canal de voz. Tente ligar de novo.": { es: "No pude confirmar el canal de voz. Intenta llamar de nuevo." },
+  "Ligue para uma lista de leads, um por vez, com roteiro e resultado de cada ligação.": { es: "Llama a una lista de leads, uno por vez, con guion y resultado de cada llamada." },
+  "A ligação pelo CRM ainda não está ligada. Por enquanto, o botão abre o discador do seu aparelho.": { es: "La llamada por el CRM aún no está activa. Por ahora, el botón abre el marcador de tu dispositivo." },
+  "Abertura": { es: "Apertura" },
+  "Abrir Conexões": { es: "Abrir Conexiones" },
+  "Abrir a agenda para marcar a reunião": { es: "Abrir la agenda para marcar la reunión" },
+  "Abrir resumo": { es: "Abrir resumen" },
+  "Adicione uma observação...": { es: "Agrega una observación..." },
+  "Ainda não há conversa com este contato": { es: "Aún no hay conversación con este contacto" },
+  "Ainda não há tarefas": { es: "Aún no hay tareas" },
+  "Anotação da ligação (opcional)": { es: "Nota de la llamada (opcional)" },
+  "Atribuído a": { es: "Asignado a" },
+  "Ações Rápidas": { es: "Acciones rápidas" },
+  "Ações manuais": { es: "Acciones manuales" },
+  "Buscar por nome ou telefone": { es: "Buscar por nombre o teléfono" },
+  "Caixa postal": { es: "Buzón de voz" },
+  "Campanha/fluxo": { es: "Campaña/flujo" },
+  "Canal de voz": { es: "Canal de voz" },
+  "Cold Call": { es: "Cold Call" },
+  "Cold Calls": { es: "Cold Calls" },
+  "Como configurar": { es: "Cómo configurar" },
+  "Como deixar o Cold Call funcionando": { es: "Cómo dejar el Cold Call funcionando" },
+  "Conecte o canal de voz": { es: "Conecta el canal de voz" },
+  "Contato Informações": { es: "Información del contacto" },
+  "Copiar número": { es: "Copiar número" },
+  "Criamos um funil só para o cold call, com as etapas e um roteiro para editar. Depois é importar a lista e começar a ligar, um lead por vez.": { es: "Creamos un embudo solo para cold call, con las etapas y un guion para editar. Luego importa la lista y empieza a llamar, un lead a la vez." },
+  "Criar funil de cold call": { es: "Crear embudo de cold call" },
+  "Data da adição": { es: "Fecha de adición" },
+  "Digite uma mensagem...": { es: "Escribe un mensaje..." },
+  "Discador do aparelho": { es: "Marcador del dispositivo" },
+  "Em Conexões, na aba de voz, leia o QR Code com o WhatsApp do número que vai ligar. Sem isso, o botão Ligar abre o discador do seu aparelho.": { es: "En Conexiones, en la pestaña de voz, lee el código QR con el WhatsApp del número que va a llamar. Sin eso, el botón Llamar abre el marcador de tu dispositivo." },
+  "Em Importar planilha, suba os leads. Depois clique em Vamos começar, ligue, marque o resultado e vá para o próximo.": { es: "En Importar planilla, sube los leads. Luego haz clic en Empecemos, llama, marca el resultado y pasa al siguiente." },
+  "Escolha o resultado da ligação.": { es: "Elige el resultado de la llamada." },
+  "Escreva o roteiro antes de salvar.": { es: "Escribe el guion antes de guardar." },
+  "Este lead não está no funil de cold call.": { es: "Este lead no está en el embudo de cold call." },
+  "Este lead não tem telefone.": { es: "Este lead no tiene teléfono." },
+  "Falta a etapa no funil:": { es: "Falta la etapa en el embudo:" },
+  "Fila concluída": { es: "Cola terminada" },
+  "Fila de ligações": { es: "Cola de llamadas" },
+  "Importe a lista e comece": { es: "Importa la lista y empieza" },
+  "Importe uma planilha: os leads entram na etapa Na fila, prontos para a primeira ligação.": { es: "Importa una planilla: los leads entran en la etapa En cola, listos para la primera llamada." },
+  "Inicie a conversa pelo Inbox": { es: "Inicia la conversación en el Inbox" },
+  "Leads da fila que pediram reunião, entre os já tentados": { es: "Leads de la cola que pidieron reunión, entre los ya intentados" },
+  "Libere o microfone": { es: "Permite el micrófono" },
+  "Ligação em andamento": { es: "Llamada en curso" },
+  "Ligações": { es: "Llamadas" },
+  "Ligações para fazer, um contato por vez, com o roteiro e o resultado de cada uma.": { es: "Llamadas por hacer, un contacto a la vez, con el guion y el resultado de cada una." },
+  "Mantenha o foco e siga o roteiro.": { es: "Mantén el foco y sigue el guion." },
+  "Monte sua fila de ligações": { es: "Arma tu cola de llamadas" },
+  "Na primeira ligação pelo CRM, o navegador pergunta se pode usar o microfone. Clique em Permitir.": { es: "En la primera llamada por el CRM, el navegador pregunta si puede usar el micrófono. Haz clic en Permitir." },
+  "Nada nesta lista": { es: "Nada en esta lista" },
+  "Nenhum lead para ligar ainda": { es: "Aún no hay leads para llamar" },
+  "Nenhuma ligação registrada ainda.": { es: "Aún no hay llamadas registradas." },
+  "Não atendeu": { es: "No atendió" },
+  "Não consegui carregar a fila de ligações.": { es: "No pude cargar la cola de llamadas." },
+  "Não consegui copiar o número.": { es: "No pude copiar el número." },
+  "Não iniciada": { es: "No iniciada" },
+  "Número copiado.": { es: "Número copiado." },
+  "Número errado": { es: "Número equivocado" },
+  "O funil de cold call ainda não foi criado.": { es: "El embudo de cold call aún no se creó." },
+  "O lead recusou a chamada.": { es: "El lead rechazó la llamada." },
+  "O telefone tocou e ninguém atendeu.": { es: "El teléfono sonó y nadie contestó." },
+  "Online": { es: "En línea" },
+  "Painel": { es: "Panel" },
+  "Pediu reunião": { es: "Pidió reunión" },
+  "Peça a quem administra o CRM para criar o funil.": { es: "Pide a quien administra el CRM que cree el embudo." },
+  "Quando houver mensagem no WhatsApp, ela aparece aqui, junto com as ligações.": { es: "Cuando haya mensajes en WhatsApp, aparecen aquí, junto con las llamadas." },
+  "Quando ligar, o andamento aparece aqui.": { es: "Cuando llames, el progreso aparece aquí." },
+  "Recolher resumo": { es: "Contraer resumen" },
+  "Rediscar": { es: "Volver a marcar" },
+  "Resultado Cold Call": { es: "Resultado de Cold Call" },
+  "Resumo da Chamada": { es: "Resumen de la llamada" },
+  "Roteiro": { es: "Guion" },
+  "Roteiro de cold call": { es: "Guion de cold call" },
+  "Roteiro salvo.": { es: "Guion guardado." },
+  "Seguinte": { es: "Siguiente" },
+  "Selecionar responsável": { es: "Seleccionar responsable" },
+  "Selecionar todos": { es: "Seleccionar todos" },
+  "Não tem interesse": { es: "No le interesa" },
+  "São poucos passos, e você só faz uma vez em cada aparelho.": { es: "Son pocos pasos y solo los haces una vez en cada dispositivo." },
+  "Tirado da fila": { es: "Quitado de la cola" },
+  "Tirar da fila?": { es: "¿Quitar de la cola?" },
+  "Todos ligam pelo mesmo número, então conte com uma ligação por vez.": { es: "Todos llaman desde el mismo número, así que cuenta con una llamada a la vez." },
+  "Use # para títulos, [Marca] no começo da fala para a situação, e as lacunas [nome do negócio] e [seu nome].": { es: "Usa # para títulos, [Marca] al inicio de la frase para la situación, y los espacios [nome do negócio] y [seu nome]." },
+  "Use [nome da empresa] e [seu nome]: na ligação, eles viram o nome do lead e o seu.": { es: "Usa [nome da empresa] y [seu nome]: en la llamada se convierten en el nombre del lead y el tuyo." },
+  "Vamos começar": { es: "Empecemos" },
+  "aguardando o número ser conectado": { es: "esperando que se conecte el número" },
+  "conectado": { es: "conectado" },
+  "ligações registradas nesta sessão.": { es: "llamadas registradas en esta sesión." },
+  "sai da fila e o lead é marcado como perdido no funil. Nada é apagado, e o histórico continua lá.": { es: "sale de la cola y el lead queda como perdido en el embudo. No se borra nada y el historial sigue ahí." },
+  // Cold Call como módulo opcional (#3933) e a recusa de ligar para quem não recebe ligação.
+  "Não ligar": { es: "No llamar" },
+  "Pediu para não ser incomodado": { es: "Pidió no ser molestado" },
+  "Contato pessoal": { es: "Contacto personal" },
+  "Contato anonimizado não pode ser chamado.": { es: "Un contacto anonimizado no puede ser llamado." },
+  "Cold Call (fila de ligações)": { es: "Cold Call (cola de llamadas)" },
+  "Leads para ligar, um por um.": { es: "Leads para llamar, uno por uno." },
+  "Ligado, cada empresa ganha no CRM a tela Cold Call: um funil próprio, a importação da lista e a ligação para um lead por vez, pelo canal de voz quando ele está pareado ou pelo discador do aparelho. Quem pediu para não ser incomodado, contato pessoal e contato anonimizado não recebem ligação. Desligado, a tela e o menu somem.": { es: "Activado, cada empresa obtiene en el CRM la pantalla Cold Call: un embudo propio, la importación de la lista y la llamada a un lead a la vez, por el canal de voz cuando está emparejado o por el marcador del dispositivo. Quien pidió no ser molestado, el contacto personal y el contacto anonimizado no reciben llamadas. Desactivado, la pantalla y el menú desaparecen." },
+  "Uma fila para ligar para uma lista de leads, um por vez, com roteiro e o resultado de cada ligação movendo o lead no funil.": { es: "Una cola para llamar a una lista de leads, uno a la vez, con guion y el resultado de cada llamada moviendo el lead en el embudo." },
+  // Ordenação da tabela de campanhas (#3911). "Ordenar por" é igual nos dois
+  // idiomas de propósito: é a mesma expressão em espanhol.
+  "Ordenar por": { es: "Ordenar por" },
+  "Mais recentes": { es: "Más recientes" },
+  "Mais antigas": { es: "Más antiguas" },
+  "Ativas primeiro": { es: "Activas primero" },
   "Avisar também nas transferências para atendimento humano": { es: "Avisar también en las transferencias a atención humana" },
   "Cada transferência manda uma mensagem ao mesmo número e conta no limite diário dele. Desligue para receber só os avisos de casos.": { es: "Cada transferencia envía un mensaje al mismo número y cuenta en su límite diario. Desactívalo para recibir solo los avisos de casos." },
   "Também param de sair, até você cadastrar um número de novo: os avisos de transferência para atendimento humano, os avisos da Agenda que usam o mesmo número dos casos e as automações com a ação \"Mensagem para a equipe\".": { es: "También dejan de salir, hasta que registres otro número: los avisos de transferencia a atención humana, los avisos de la Agenda que usan el mismo número que los casos y las automatizaciones con la acción \"Mensaje para el equipo\"." },
@@ -238,6 +343,20 @@ export const DICIONARIO: Traducoes = {
   "Ex.: WA | Fixo 7906": { es: "Ej.: WA | Fijo 7906" },
   "Informe um nome interno com até 80 caracteres.": { es: "Indica un nombre interno de hasta 80 caracteres." },
   "Não foi possível consultar o canal do lembrete.": { es: "No se pudo consultar el canal del recordatorio." },
+  // O modelo do lembrete fora da janela de 24 h (migration 9092).
+  "Se a janela de 24 h do cliente já tiver fechado, mandar este modelo aprovado": { es: "Si la ventana de 24 h del cliente ya se cerró, enviar esta plantilla aprobada" },
+  "Nenhum — fora da janela o lembrete não sai e a equipe recebe um aviso": { es: "Ninguna — fuera de la ventana el recordatorio no sale y el equipo recibe un aviso" },
+  "Modelo configurado indisponível — escolha outro": { es: "Plantilla configurada no disponible — elige otra" },
+  "Vale só para o número oficial, que depois de 24 horas sem mensagem do cliente aceita apenas modelo aprovado. O modelo sai pelo número dono dele, e as variáveis recebem, nesta ordem: {{1}} primeiro nome, {{2}} dia e hora, {{3}} título, {{4}} endereço.": {
+    es: "Solo vale para el número oficial, que después de 24 horas sin mensaje del cliente acepta únicamente plantillas aprobadas. La plantilla sale por el número al que pertenece, y las variables reciben, en este orden: {{1}} nombre, {{2}} día y hora, {{3}} título, {{4}} dirección.",
+  },
+  "Não foi possível carregar os modelos aprovados. A escolha guardada será preservada; tente novamente.": { es: "No se pudieron cargar las plantillas aprobadas. Se conservará la elección guardada; inténtalo de nuevo." },
+  "Não foi possível consultar o modelo do lembrete.": { es: "No se pudo consultar la plantilla del recordatorio." },
+  "Escolha um modelo aprovado desta organização.": { es: "Elige una plantilla aprobada de esta organización." },
+  "Este modelo não serve para o lembrete: ele só pode ter variáveis de texto no corpo, de {{1}} a {{4}}, sem pular número.": {
+    es: "Esta plantilla no sirve para el recordatorio: solo puede tener variables de texto en el cuerpo, de {{1}} a {{4}}, sin saltarse ningún número.",
+  },
+  "O modelo escolhido é de outro número. Escolha um modelo do número que envia os lembretes.": { es: "La plantilla elegida es de otro número. Elige una plantilla del número que envía los recordatorios." },
   "Escolha um canal de mensagem não arquivado desta organização.": { es: "Elige un canal de mensajes no archivado de esta organización." },
   "Conectar a assinatura do ChatGPT": { es: "Conectar la suscripción de ChatGPT" },
   "Cada empresa conecta a própria conta do ChatGPT. Abra o link e entre com a conta que tem a assinatura. No fim, o navegador vai para http://127.0.0.1:1455/auth/callback, que pode não abrir — é esperado. Copie esse endereço inteiro, da barra do navegador, e cole aqui.": {
@@ -3227,6 +3346,12 @@ export const DICIONARIO: Traducoes = {
   "Mínimo (min)": { es: "Mínimo (min)" },
   "Máximo (min)": { es: "Máximo (min)" },
   "Orientação (opcional)": { es: "Orientación (opcional)" },
+  // Espera com horário (`wait.ate_o_horario`) — o painel da espera e o card.
+  "Só terminar a espera em horário comercial": { es: "Terminar la espera solo en horario comercial" },
+  "Se a espera vencer fora deste horário, o fluxo continua esperando até a próxima abertura. Vale o fuso da organização.": {
+    es: "Si la espera vence fuera de este horario, el flujo sigue esperando hasta la próxima apertura. Vale la zona horaria de la organización.",
+  },
+  "só em horário comercial": { es: "solo en horario comercial" },
   "Classes (separadas por vírgula)": { es: "Clases (separadas por comas)" },
   "Esperar a resposta por (minutos)": { es: "Esperar la respuesta durante (minutos)" },
   "O que a IA vai ler": { es: "Qué va a leer la IA" },
@@ -4739,6 +4864,15 @@ export const DICIONARIO: Traducoes = {
   },
   "O cliente manda mensagem e ninguém responde. A conversa fica parada na Caixa de entrada sem aviso.": {
     es: "El cliente manda un mensaje y nadie responde. La conversación se queda parada en la Bandeja de entrada, sin aviso.",
+  },
+  "Escrever o follow-up": {
+    es: "Escribir el seguimiento",
+  },
+  "Escreve as mensagens que o agente manda sozinho quando o cliente para de responder: os passos de IA dos fluxos de follow-up e os retornos que ele mesmo combinou. Sem escolha aqui, usa o modelo da versão publicada do agente.": {
+    es: "Escribe los mensajes que el agente envía por su cuenta cuando el cliente deja de responder: los pasos con IA de los flujos de seguimiento y los retornos que él mismo acordó. Si no eliges nada aquí, usa el modelo de la versión publicada del agente.",
+  },
+  "O follow-up não sai: o cliente que parou de responder não recebe a retomada, e o fluxo fica parado no passo da mensagem.": {
+    es: "El seguimiento no sale: nadie le vuelve a escribir al cliente que dejó de responder, y el flujo se queda parado en el paso del mensaje.",
   },
   "Trabalhar o funil": {
     es: "Trabajar el embudo",
@@ -6501,6 +6635,10 @@ export const DICIONARIO: Traducoes = {
   "Como o outro sistema confere a assinatura e reconhece reenvios: guia de integração em docs/integracao/webhooks-de-saida.md, na documentação do projeto.": {
     es: "Cómo el otro sistema verifica la firma y reconoce los reenvíos: guía de integración en docs/integracao/webhooks-de-saida.md, en la documentación del proyecto.",
   },
+  "Tirar o contato de outro fluxo": { es: "Sacar al contacto de otro flujo" },
+  "Se o contato já estiver em outro fluxo, ele sai daquele e entra neste. Fluxo pausado por uma pessoa não é trocado.": {
+    es: "Si el contacto ya está en otro flujo, sale de ese y entra en este. Un flujo pausado por una persona no se cambia.",
+  },
   "Incluir o responsável no corpo": { es: "Incluir al responsable en el cuerpo" },
   "Padrão: o aviso não diz quem atende. Ligue só se o outro sistema precisar do nome da equipe.": {
     es: "Por defecto, el aviso no dice quién atiende. Actívalo solo si el otro sistema necesita el nombre del equipo.",
@@ -7076,6 +7214,12 @@ export const DICIONARIO: Traducoes = {
     {
       es: "El embudo elegido no está activo, así que la inscripción no se hizo. Activa el embudo o elige otro en la automatización.",
     },
+  "O contato já está neste mesmo fluxo — a automação não o recomeça.": {
+    es: "El contacto ya está en este mismo flujo: la automatización no lo vuelve a empezar.",
+  },
+  "O contato está em outro fluxo pausado por uma pessoa da equipe, e a automação não passa por cima dessa decisão.": {
+    es: "El contacto está en otro flujo pausado por una persona del equipo, y la automatización no pasa por encima de esa decisión.",
+  },
   "O contato já está em um funil ativo — esta ação não inscreve duas vezes.": {
     es: "El contacto ya está en un embudo activo, así que esta acción no lo inscribe de nuevo.",
   },
@@ -7120,6 +7264,16 @@ export const DICIONARIO: Traducoes = {
   "Posicionamento (utm_placement)": { es: "Ubicación (utm_placement)" },
   "A plataforma não informa o posicionamento de cada clique em anúncio.": {
     es: "La plataforma no informa la ubicación de cada clic en un anuncio.",
+  },
+  "Provável: deduzida pelo horário do clique. A mensagem chegou sem o código do link.": {
+    es: "Probable: deducido por la hora del clic. El mensaje llegó sin el código del enlace.",
+  },
+  // Doc de decisão 259 (PR #3906): a chave da empresa, desligada de fábrica.
+  "Deduzir a origem do site pelo horário do clique": {
+    es: "Deducir el origen del sitio por la hora del clic",
+  },
+  "Quando o cliente apaga o código da mensagem, a origem se perde. Ligada, o primeiro contato novo que escrever até 10 minutos depois de um clique sem dono num link deste número recebe a origem desse clique. É um palpite, não uma prova: quem escreve na mesma hora sem ter visto o site pode receber a campanha de outra pessoa. A ficha do contato marca a origem como provável. Vem desligada.": {
+    es: "Cuando el cliente borra el código del mensaje, el origen se pierde. Activada, el primer contacto nuevo que escriba hasta 10 minutos después de un clic sin dueño en un enlace de este número recibe el origen de ese clic. Es una suposición, no una prueba: quien escribe a la misma hora sin haber visto el sitio puede recibir la campaña de otra persona. La ficha del contacto marca el origen como probable. Viene desactivada.",
   },
   "Etapa de destino": { es: "Etapa de destino" },
   // #2065 — nós de ação do follow-up (mover lead no funil / editar tag)
@@ -7403,14 +7557,20 @@ export const DICIONARIO: Traducoes = {
   "Na inscrição do webhook no provedor, preencha o filtro de contas (accountIds) com a Conta deste número: assim só chegam aqui os eventos dele.": {
     es: "En la suscripción del webhook en el proveedor, completa el filtro de cuentas (accountIds) con la Cuenta de este número: así solo llegan aquí sus eventos.",
   },
-  " — se sair desta tela sem copiá-lo, reconecte para gerar outro.": {
-    es: " — si sales de esta pantalla sin copiarlo, reconecta para generar otro.",
+  " — se sair desta tela sem copiá-lo, exclua a conexão e conecte de novo para gerar outro.": {
+    es: " — si sales de esta pantalla sin copiarlo, elimina la conexión y vuelve a conectar para generar otro.",
   },
   "URL do webhook": { es: "URL del webhook" },
   "Segredo (assinatura)": { es: "Secreto (firma)" },
   "Qualidade do número segundo a plataforma:": { es: "Calidad del número según la plataforma:" },
-  "O endereço que o provedor usa para entregar as mensagens. O segredo não é mostrado de novo — para obter um novo, reconecte.": {
-    es: "La dirección que el proveedor usa para entregar los mensajes. El secreto no se vuelve a mostrar. Para obtener uno nuevo, reconecta.",
+  "O endereço público desta instalação não está configurado. Quem administra a instalação precisa definir NEXT_PUBLIC_APP_URL com o endereço pelo qual ela é acessada.": {
+    es: "La dirección pública de esta instalación no está configurada. Quien administra la instalación debe definir NEXT_PUBLIC_APP_URL con la dirección por la que se accede a ella.",
+  },
+  "O provedor não confirmou a remoção do número. A conexão continua aqui: tente excluir de novo em alguns minutos.": {
+    es: "El proveedor no confirmó la eliminación del número. La conexión sigue aquí: intenta eliminarla de nuevo en unos minutos.",
+  },
+  "O endereço que o provedor usa para entregar as mensagens. O segredo não é mostrado de novo — para gerar outro, exclua a conexão e conecte de novo.": {
+    es: "La dirección que el proveedor usa para entregar los mensajes. El secreto no se vuelve a mostrar. Para generar otro, elimina la conexión y vuelve a conectar.",
   },
   "Conectar novo WhatsApp": { es: "Conectar un WhatsApp nuevo" },
   "WhatsApp conectado!": { es: "¡WhatsApp conectado!" },
@@ -8169,6 +8329,10 @@ export const DICIONARIO: Traducoes = {
   "Lead ganho": { es: "Lead ganado" },
   "Lead perdido": { es: "Lead perdido" },
   "Você foi mencionado": { es: "Te mencionaron" },
+  // ─── lib/notifications/push.handler.ts + push-de-venda.ts (o push no celular) ───
+  "Nova mensagem no grupo": { es: "Mensaje nuevo en el grupo" },
+  "Hoje nesta etapa: {quantidade}": { es: "Hoy en esta etapa: {quantidade}" },
+  "Ganhos hoje: {quantidade}": { es: "Ganados hoy: {quantidade}" },
   "Ligação recebida": { es: "Llamada recibida" },
   Email: { es: "Correo" },
   "In-app": { es: "En la app" },
@@ -8874,6 +9038,8 @@ export const DICIONARIO: Traducoes = {
   "Conexões → Templates": { es: "Conexiones → Plantillas" },
   "e envie quando a plataforma aprovar.": { es: "y envíala cuando la plataforma la apruebe." },
   "Modelo aprovado": { es: "Plantilla aprobada" },
+  "Modelo do WhatsApp": { es: "Plantilla de WhatsApp" },
+  "Opções enviadas ao cliente": { es: "Opciones enviadas al cliente" },
   "Este modelo pede": { es: "Esta plantilla pide" },
   "valor(es) e ainda não dá para preenchê-los aqui — envie por": {
     es: "valor(es) y todavía no se pueden completar aquí — envía por",
@@ -9616,6 +9782,14 @@ export const DICIONARIO: Traducoes = {
   "Cuiabá e Mato Grosso": { es: "Cuiabá y Mato Grosso" },
   "Rio Branco e Acre": { es: "Río Branco y Acre" },
   "Buenos Aires": { es: "Buenos Aires" },
+  "Assunção": { es: "Asunción" },
+  "Montevidéu": { es: "Montevideo" },
+  "Santiago": { es: "Santiago" },
+  "La Paz": { es: "La Paz" },
+  "Lima": { es: "Lima" },
+  "Bogotá": { es: "Bogotá" },
+  "Quito e Guayaquil": { es: "Quito y Guayaquil" },
+  "Cidade do México": { es: "Ciudad de México" },
   "Lisboa": { es: "Lisboa" },
   "Madri": { es: "Madrid" },
   "Nova York": { es: "Nueva York" },
@@ -9770,6 +9944,9 @@ export const DICIONARIO: Traducoes = {
   "O agente decidiu quanto esperar em cada passo": { es: "El agente decidió cuánto esperar en cada paso" },
   "Seguiu sem o plano de tempo": { es: "Continuó sin el plan de tiempos" },
   "Cancelado por uma pessoa da equipe": { es: "Cancelado por una persona del equipo" },
+  "Encerrado porque uma automação o colocou em outro fluxo": {
+    es: "Terminado porque una automatización lo puso en otro flujo",
+  },
   "Pausado por uma pessoa da equipe": { es: "Pausado por una persona del equipo" },
   "Retomado por uma pessoa da equipe": { es: "Reanudado por una persona del equipo" },
   "Adiado por uma pessoa da equipe": { es: "Pospuesto por una persona del equipo" },
@@ -12785,6 +12962,14 @@ export const DICIONARIO: Traducoes = {
     es: "Edita en el origen: lo que cambies aquí se vuelve a sobrescribir en la próxima sincronización.",
   },
   "(opcional)": { es: "(opcional)" },
+  // ─── app/app/products/_client.tsx — descrição do produto no cadastro e na planilha ───
+  "sem descrição": { es: "sin descripción" },
+  "É o que o atendente de IA conta ao cliente: para que serve, medidas, materiais, diferenciais. Ele repete o que estiver aqui — e não inventa o que faltar.": {
+    es: "Es lo que el asistente de IA le cuenta al cliente: para qué sirve, medidas, materiales, diferenciales. Repite lo que esté aquí y no inventa lo que falte.",
+  },
+  "Descrição escrita pela planilha em {quantidade} produto(s).": {
+    es: "Descripción escrita por la planilla en {quantidade} producto(s).",
+  },
   "Serve para o atendente saber até onde pode negociar. Não aparece para o cliente.": {
     es: "Sirve para que el asistente sepa hasta dónde puede negociar. No se muestra al cliente.",
   },
@@ -15205,8 +15390,32 @@ export const DICIONARIO: Traducoes = {
     { es: "La conexión de WhatsApp elegida para los avisos está fuera de servicio." },
   "A conexão de WhatsApp escolhida para os avisos foi removida.":
     { es: "La conexión de WhatsApp elegida para los avisos fue eliminada." },
-  "A conexão escolhida só envia mensagens aprovadas — ela não serve para o aviso de caso.":
-    { es: "La conexión elegida solo envía mensajes aprobados, así que no sirve para los avisos de casos." },
+  "A conexão escolhida só envia mensagens aprovadas, e o aviso não tem um modelo aprovado com uma variável escolhido para ela.":
+    { es: "La conexión elegida solo envía mensajes aprobados, y el aviso no tiene elegida una plantilla aprobada con una variable para ella." },
+  "A conexão escolhida só manda modelo aprovado fora das 24 horas. Escolha abaixo um modelo dela com uma variável — o aviso vai dentro dele. Se não houver nenhum, crie na aba de modelos do número, em Conexões.":
+    { es: "La conexión elegida solo envía plantillas aprobadas fuera de las 24 horas. Elige abajo una plantilla suya con una variable: el aviso va dentro de ella. Si no hay ninguna, créala en la pestaña de plantillas del número, en Conexiones." },
+  "Aparecem aqui os números que mandam mensagem a qualquer hora e os números oficiais que já têm um modelo aprovado com uma variável.":
+    { es: "Aquí aparecen los números que envían mensajes a cualquier hora y los números oficiales que ya tienen una plantilla aprobada con una variable." },
+  "Esta conexão não tem nenhum modelo aprovado com uma variável. Crie um na aba de modelos do número, em Conexões, ou escolha outra conexão.":
+    { es: "Esta conexión no tiene ninguna plantilla aprobada con una variable. Crea una en la pestaña de plantillas del número, en Conexiones, o elige otra conexión." },
+  "Escolha o modelo aprovado que leva o aviso":
+    { es: "Elige la plantilla aprobada que lleva el aviso" },
+  "Escolha um modelo aprovado":
+    { es: "Elige una plantilla aprobada" },
+  "Esse modelo ainda não está aprovado. Escolha um modelo aprovado.":
+    { es: "Esa plantilla todavía no está aprobada. Elige una plantilla aprobada." },
+  "Esse modelo não existe mais nesta conta. Escolha outro modelo aprovado.":
+    { es: "Esa plantilla ya no existe en esta cuenta. Elige otra plantilla aprobada." },
+  "Esse modelo não é da conexão escolhida. Escolha um dos modelos aprovados dela.":
+    { es: "Esa plantilla no es de la conexión elegida. Elige una de sus plantillas aprobadas." },
+  "Fora das 24 horas este número só manda modelo aprovado. O aviso vai dentro dele, numa linha só, no lugar da variável. Cada aviso é uma mensagem cobrada pela plataforma do número oficial.":
+    { es: "Fuera de las 24 horas este número solo envía plantillas aprobadas. El aviso va dentro de ella, en una sola línea, en lugar de la variable. Cada aviso es un mensaje que cobra la plataforma del número oficial." },
+  "Modelo aprovado que leva o aviso":
+    { es: "Plantilla aprobada que lleva el aviso" },
+  "Não foi possível conferir o modelo agora. Tente de novo em instantes.":
+    { es: "No se pudo revisar la plantilla ahora. Inténtalo de nuevo en unos instantes." },
+  "O modelo precisa ter uma variável só, no texto — é nela que o aviso entra.":
+    { es: "La plantilla necesita tener una sola variable, en el texto: ahí entra el aviso." },
   "A conexão escolhida para os avisos está pausada. Retome-a na Central de Conexões para os avisos voltarem a sair.":
     { es: "La conexión elegida para los avisos está en pausa. Reanúdala en la Central de Conexiones para que los avisos vuelvan a salir." },
   "O serviço de WhatsApp desta instalação não está configurado.":
@@ -15320,6 +15529,8 @@ export const DICIONARIO: Traducoes = {
     { es: "Elige un número del equipo para recibir un mensaje cada vez que el asistente se trabe y necesite a una persona." },
   "Escolher outro número":
     { es: "Elegir otro número" },
+  "A pessoa pode ser cliente da própria empresa — a equipe que viaja pela própria agência, por exemplo. Nesse caso o número ainda recebe o aviso e continua entrando no CRM: diferente de um número interno, que deixa de virar atendimento.":
+    { es: "La persona puede ser cliente de la propia empresa — el equipo que viaja por la propia agencia, por ejemplo. En ese caso el número sigue recibiendo el aviso y sigue entrando al CRM: distinto de un número interno, que deja de convertirse en atención." },
   "Esse número ainda não está completo.":
     { es: "Ese número todavía no está completo." },
   "Esse número passa a ser só da equipe: o que ele mandar deixa de virar atendimento.":
@@ -15380,8 +15591,10 @@ export const DICIONARIO: Traducoes = {
     { es: "Tus asistentes solo sugieren respuestas" },
   "Seus números atuais não servem para avisar a equipe":
     { es: "Tus números actuales no sirven para avisar al equipo" },
-  "Seus números atuais só enviam mensagem para quem falou com você nas últimas 24 horas — isso não serve para um aviso interno. Conecte um número pelo QR code para usar este recurso.":
-    { es: "Tus números actuales solo envían mensajes a quien habló contigo en las últimas 24 horas, y eso no sirve para un aviso interno. Conecta un número por código QR para usar esta función." },
+  "Seus números atuais só enviam mensagem para quem falou com você nas últimas 24 horas, e nenhum tem um modelo aprovado com uma variável para levar o aviso. Crie esse modelo na aba de modelos do número, em Conexões, ou conecte um número pelo QR code.":
+    { es: "Tus números actuales solo envían mensajes a quien habló contigo en las últimas 24 horas, y ninguno tiene una plantilla aprobada con una variable para llevar el aviso. Crea esa plantilla en la pestaña de plantillas del número, en Conexiones, o conecta un número por código QR." },
+  "só modelo aprovado":
+    { es: "solo plantilla aprobada" },
   "Só aparecem aqui os números que conseguem mandar uma mensagem a qualquer hora.":
     { es: "Aquí solo aparecen los números que pueden enviar un mensaje a cualquier hora." },
   "Tempo típico entre o assistente travar e alguém da equipe agir, nos últimos 30 dias. Os dois grupos contam a partir do mesmo momento.":
@@ -17418,6 +17631,34 @@ export const DICIONARIO: Traducoes = {
   "Padrão: varia": { es: "Por defecto: varía" },
   "Desligado por quem administra o servidor": { es: "Desactivado por quien administra el servidor" },
   "Recursos opcionais": { es: "Recursos opcionales" },
+  // Recursos opcionais › IA das empresas novas (migration 9096) e os dois lugares que a citam.
+  "IA das empresas novas": { es: "IA de las empresas nuevas" },
+  "Toda empresa criada daqui em diante nasce com a mesma escolha de modelo por função da empresa que você escolher aqui. As empresas que já existem não mudam.": { es: "Toda empresa creada a partir de ahora nace con la misma elección de modelo por función de la empresa que elijas aquí. Las empresas que ya existen no cambian." },
+  "Copiar a IA de": { es: "Copiar la IA de" },
+  "Copia o modelo de cada função e o modelo padrão, sempre usando a chave de IA desta instalação. Chaves, Jev, agentes e base de conhecimento nunca são copiados.": { es: "Copia el modelo de cada función y el modelo predeterminado, siempre usando la clave de IA de esta instalación. Las claves, el Jev, los agentes y la base de conocimiento nunca se copian." },
+  "Nenhuma (cada empresa começa com o padrão do produto)": { es: "Ninguna (cada empresa empieza con lo predeterminado del producto)" },
+  "não está ativa": { es: "no está activa" },
+  "Só uma empresa ativa pode servir de molde. Recarregue a página e escolha outra.": { es: "Solo una empresa activa puede servir de molde. Recarga la página y elige otra." },
+  "Não deu para ler a lista de empresas agora. Recarregue a página em instantes.": { es: "No se pudo leer la lista de empresas ahora. Recarga la página en unos instantes." },
+  "Cada empresa nova começa com o modelo padrão do produto e sem escolha por função.": { es: "Cada empresa nueva empieza con el modelo predeterminado del producto y sin elección por función." },
+  "Escolha salva, mas não deu para ler agora o que esta empresa tem configurado.": { es: "Elección guardada, pero no se pudo leer ahora lo que esta empresa tiene configurado." },
+  "Esta empresa não tem nada que se possa copiar: as empresas novas vão nascer com o padrão do produto.": { es: "Esta empresa no tiene nada que se pueda copiar: las empresas nuevas van a nacer con lo predeterminado del producto." },
+  "A próxima empresa vai nascer com 1 função de IA configurada:": { es: "La próxima empresa va a nacer con 1 función de IA configurada:" },
+  "A próxima empresa vai nascer com {n} funções de IA configuradas:": { es: "La próxima empresa va a nacer con {n} funciones de IA configuradas:" },
+  "1 função": { es: "1 función" },
+  "{n} funções": { es: "{n} funciones" },
+  "Modelo padrão:": { es: "Modelo predeterminado:" },
+  "Modelo padrão: o do produto — o desta empresa usa um provedor que só funciona com a chave dela.": { es: "Modelo predeterminado: el del producto — el de esta empresa usa un proveedor que solo funciona con su propia clave." },
+  "1 função desta empresa fica de fora: usa um endereço próprio ou um provedor que só funciona com a chave da própria empresa.": { es: "1 función de esta empresa queda fuera: usa una dirección propia o un proveedor que solo funciona con la clave de la propia empresa." },
+  "{n} funções desta empresa ficam de fora: usam um endereço próprio ou um provedor que só funciona com a chave da própria empresa.": { es: "{n} funciones de esta empresa quedan fuera: usan una dirección propia o un proveedor que solo funciona con la clave de la propia empresa." },
+  "A IA com que as empresas novas nascem se escolhe em Recursos opcionais →": { es: "La IA con la que nacen las empresas nuevas se elige en Recursos opcionales →" },
+  "A IA desta empresa vai nascer copiada de {empresa}, o molde escolhido em Recursos opcionais: o modelo de cada função e o modelo padrão, com a chave de IA desta instalação.": { es: "La IA de esta empresa va a nacer copiada de {empresa}, el molde elegido en Recursos opcionales: el modelo de cada función y el modelo predeterminado, con la clave de IA de esta instalación." },
+  "IA copiada do molde": { es: "IA copiada del molde" },
+  "Esta empresa nasceu com a IA de {empresa}.": { es: "Esta empresa nació con la IA de {empresa}." },
+  "Esta empresa nasceu com a IA de uma empresa que já foi excluída.": { es: "Esta empresa nació con la IA de una empresa que ya fue eliminada." },
+  "1 função de IA copiada": { es: "1 función de IA copiada" },
+  "{n} funções de IA copiadas": { es: "{n} funciones de IA copiadas" },
+  "Depois de nascer, a IA é desta empresa: trocar o molde não muda o que ela já tem.": { es: "Después de nacer, la IA es de esta empresa: cambiar el molde no cambia lo que ya tiene." },
   "Ligado, cada empresa ainda precisa ligar o módulo de proposta comercial nas configurações dela — o caminho aparece abaixo. A IA levanta o que o cliente precisa, monta a proposta pelos modelos da empresa e o PDF sai pelo WhatsApp. Desligado, nenhuma empresa vê a tela, o menu nem as ferramentas do agente.": { es: "Activado, cada empresa todavía necesita activar el módulo de propuesta comercial en su configuración — la ruta aparece abajo. La IA levanta lo que el cliente necesita, arma la propuesta con las plantillas de la empresa y el PDF sale por WhatsApp. Desactivado, ninguna empresa ve la pantalla, el menú ni las herramientas del agente." },
   "Não cria porta no menu do CRM: ele libera um painel em": { es: "No crea entrada en el menú del CRM: habilita un panel en" },
   "Aparece no menu em:": { es: "Aparece en el menú en:" },
@@ -18157,6 +18398,9 @@ export const DICIONARIO: Traducoes = {
   "Sites verificados:": { es: "Sitios verificados:" },
   "Verificado em": { es: "Verificado el" },
   "Prévias:": { es: "Vistas previas:" },
+  "WhatsApp verificado:": { es: "WhatsApp verificado:" },
+  "sem WhatsApp, fora da abordagem": { es: "sin WhatsApp, no se las contactará" },
+  "Sem WhatsApp neste número.": { es: "Este número no tiene WhatsApp." },
   "Prévia: escolha o agente na etapa 2": { es: "Vista previa: elige el agente en el paso 2" },
   "Avaliar o site de cada empresa automaticamente": { es: "Evaluar automáticamente el sitio de cada empresa" },
   "Gerar a prévia da mensagem automaticamente (consome crédito de IA)": {
@@ -19048,6 +19292,11 @@ export const DICIONARIO: Traducoes = {
   "O administrador da empresa escreve um aviso e ele chega como notificação nos aparelhos da equipe.": { es: "El administrador de la empresa escribe un aviso y este llega como notificación a los dispositivos del equipo." },
   "Ligado, o administrador de cada empresa pode escrever um aviso com título e texto, e ele chega como notificação nos aparelhos da equipe que ativaram as notificações. Desligado, ninguém envia avisos; os já enviados ficam guardados.": { es: "Activado, el administrador de cada empresa puede escribir un aviso con título y texto, y este llega como notificación a los dispositivos del equipo que activaron las notificaciones. Desactivado, nadie envía avisos; los ya enviados quedan guardados." },
   "Não cria porta no menu do CRM: por enquanto o aviso é enviado pela API, em /api/v1/avisos.": { es: "No crea entrada en el menú del CRM: por ahora el aviso se envía por la API, en /api/v1/avisos." },
+  // O módulo opcional da conferência de WhatsApp na prospecção (#3887) em /admin/sistema e em Recursos opcionais.
+  "Conferir WhatsApp na prospecção": { es: "Verificar WhatsApp en la prospección" },
+  "Ligado, a prospecção pergunta ao WhatsApp, pela conexão por QR da empresa, se cada telefone achado numa busca tem conta, e quem não tem sai da abordagem. A pergunta sai do número da empresa, para todo telefone achado, a qualquer hora; consulta em massa assim pode chamar a atenção do WhatsApp e arriscar o número. Desligado, nada é consultado e a abordagem segue como antes.": { es: "Activado, la prospección le pregunta a WhatsApp, por la conexión por QR de la empresa, si cada teléfono encontrado en una búsqueda tiene cuenta, y quien no tiene sale del abordaje. La pregunta sale del número de la empresa, para todo teléfono encontrado, a cualquier hora; una consulta masiva así puede llamar la atención de WhatsApp y poner en riesgo el número. Desactivado, no se consulta nada y el abordaje sigue como antes." },
+  "Não cria porta no menu do CRM: a conferência aparece na lista de empresas em": { es: "No crea entrada en el menú del CRM: la verificación aparece en la lista de empresas en" },
+  "Antes de abordar, pergunta ao WhatsApp se o telefone da empresa achada tem conta, e tira da abordagem quem não tem.": { es: "Antes de abordar, le pregunta a WhatsApp si el teléfono de la empresa encontrada tiene cuenta, y saca del abordaje a quien no tiene." },
   'Para não depender do dado, ponha um texto de reserva: {{primeiro_nome|"aluno"}}.': {
     es: 'Para no depender del dato, pon un texto de respaldo: {{primeiro_nome|"alumno"}}.',
   },
@@ -19288,6 +19537,42 @@ export const DICIONARIO: Traducoes = {
     {
       es: "El mensaje no sale y el salto queda registrado en la Actividad con el motivo «contacto con horario agendado», para que el equipo sepa que la automatización pasó.",
     },
+
+  // ─── conexão do número oficial por um clique (canal parceiro, migration 9093) ───
+  "WhatsApp conectado. As mensagens já entram por aqui.": { es: "WhatsApp conectado. Los mensajes ya entran por aquí." },
+  "Concluindo a conexão…": { es: "Completando la conexión…" },
+  "Reconectar o WhatsApp": { es: "Reconectar el WhatsApp" },
+  "Conectar o WhatsApp com um clique": { es: "Conectar el WhatsApp con un clic" },
+  "Abre a janela da Meta: você entra com o Facebook da empresa, escolhe o número e confirma. Não precisa de conta no provedor, e o webhook fica configurado sozinho.": { es: "Abre la ventana de Meta: entras con el Facebook de la empresa, eliges el número y confirmas. No necesitas cuenta en el proveedor, y el webhook queda configurado solo." },
+  "Como o número está hoje": { es: "Cómo está el número hoy" },
+  "O número já usa o app WhatsApp Business": { es: "El número ya usa la app WhatsApp Business" },
+  "Continua funcionando no celular. A Meta mostra um QR para escanear com o app.": { es: "Sigue funcionando en el celular. Meta muestra un QR para escanear con la app." },
+  "Número novo, ou que já está na API oficial": { es: "Número nuevo, o que ya está en la API oficial" },
+  "Só pelo CRM, sem o app no celular.": { es: "Solo por el CRM, sin la app en el celular." },
+  "Reconectar meu WhatsApp": { es: "Reconectar mi WhatsApp" },
+  "Conectar meu WhatsApp": { es: "Conectar mi WhatsApp" },
+  "Já tenho conta no": { es: "Ya tengo cuenta en" },
+  ": usar a minha chave": { es: ": usar mi clave" },
+  "Webhook configurado": { es: "Webhook configurado" },
+  "A instalação registrou o webhook no provedor: só os eventos deste número chegam a esta organização. Não há nada para colar.": { es: "La instalación registró el webhook en el proveedor: solo los eventos de este número llegan a esta organización. No hay nada para pegar." },
+  "Configurado automaticamente no provedor: só os eventos deste número chegam aqui.": { es: "Configurado automáticamente en el proveedor: solo los eventos de este número llegan aquí." },
+  "Confira os dados da conexão.": { es: "Revisa los datos de la conexión." },
+  "Aguarde um minuto antes de tentar novamente.": { es: "Espera un minuto antes de intentarlo de nuevo." },
+  "Não foi possível concluir a conexão. Tente novamente.": { es: "No se pudo completar la conexión. Inténtalo de nuevo." },
+  "Este número foi conectado pela instalação. Para usar a sua chave, exclua a conexão atual em Conexões antes.": { es: "Este número fue conectado por la instalación. Para usar tu clave, elimina antes la conexión actual en Conexiones." },
+  "Esta instalação não tem conta no provedor para conectar com um clique. Use a sua própria chave.": { es: "Esta instalación no tiene cuenta en el proveedor para conectar con un clic. Usa tu propia clave." },
+  "Este número foi conectado com a chave própria da organização. Para conectar pela instalação, exclua a conexão atual em Conexões antes.": { es: "Este número fue conectado con la clave propia de la organización. Para conectarlo por la instalación, elimina antes la conexión actual en Conexiones." },
+  "cifra indisponível nesta instalação — a conexão não foi gravada": { es: "cifrado no disponible en esta instalación — la conexión no se guardó" },
+  "Esta volta da conexão não é válida ou expirou. Conecte de novo.": { es: "Este regreso de la conexión no es válido o expiró. Conecta de nuevo." },
+  "O provedor não confirmou este número no perfil da organização. Conecte de novo.": { es: "El proveedor no confirmó este número en el perfil de la organización. Conecta de nuevo." },
+  "A conexão foi cancelada na janela da Meta.": { es: "La conexión se canceló en la ventana de Meta." },
+  "Esta organização já tem um número conectado. Remova a conexão atual antes de conectar outro.": { es: "Esta organización ya tiene un número conectado. Elimina la conexión actual antes de conectar otro." },
+  "Este número já está conectado em outra conta. Desconecte-o lá antes de conectar aqui.": { es: "Este número ya está conectado en otra cuenta. Desconéctalo allí antes de conectarlo aquí." },
+  "A conta do provedor desta instalação precisa de um meio de pagamento. Avise o administrador da instalação.": { es: "La cuenta del proveedor de esta instalación necesita un medio de pago. Avisa al administrador de la instalación." },
+  "A página de conexão expirou. Tente de novo.": { es: "La página de conexión expiró. Inténtalo de nuevo." },
+  "A Meta não concluiu a conexão. Tente de novo.": { es: "Meta no completó la conexión. Inténtalo de nuevo." },
+  "Chave da conta da instalação no provedor parceiro": { es: "Clave de la cuenta de la instalación en el proveedor asociado" },
+  "Com ela, cada empresa conecta o número oficial do WhatsApp com um clique, sem ter conta no provedor. Os números ficam na conta da instalação e entram na fatura dela.": { es: "Con ella, cada empresa conecta el número oficial de WhatsApp con un clic, sin tener cuenta en el proveedor. Los números quedan en la cuenta de la instalación y entran en su factura." },
 };
 
 /**
